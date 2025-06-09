@@ -5,11 +5,14 @@ import os
 app = Flask(__name__)
 
 db_config = {
-    'host': 'localhost',
-    'user': 'root',
-    'password': '',
-    'database': 'BDPRUEBA'
+    'host': os.getenv('DATABASE_HOST', 'localhost'),
+    'user': os.getenv('DATABASE_USER', 'root'),
+    'password': os.getenv('DATABASE_PASSWORD', ''),
+    'database': os.getenv('DATABASE_NAME', 'mydb'),
+    'port': int(os.getenv('DATABASE_PORT', 3306))
 }
+
+conn = mysql.connector.connect(**db_config)
 
 @app.route('/RegistrarCartera', methods=['GET', 'POST'])
 def registrar_cartera():

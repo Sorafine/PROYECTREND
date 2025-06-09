@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Consultar Cartera</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles.css') }}"
+    />
+  </head>
+  <body>
+    <h1>Consultar Carteras</h1>
+    <form method="GET" action="/ConsultarCartera">
+      <label>Tipo de Cartera:</label>
+      <select name="tipo" required>
+        {% for tipo in tipos %}
+        <option value="{{ tipo.CODTIPCAR }}">{{ tipo.NOMBTIPCAR }}</option>
+        {% endfor %}
+      </select>
+
+      <button type="submit">Buscar</button>
+    </form>
+
+    {% if carteras %}
+    <table>
+      <thead>
+        <tr>
+          <th>Código</th>
+          <th>Nombre</th>
+          <th>Tipo</th>
+          <th>Precio</th>
+          <th>Fecha</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for cartera in carteras %}
+        <tr>
+          <td>{{ cartera.CODCAR }}</td>
+          <td>{{ cartera.DESCRIPCAR }}</td>
+          <td>{{ cartera.NOMBTIPCAR }}</td>
+          <td>{{ cartera.PRECIOCAR }}</td>
+          <td>{{ cartera.FECHACAR }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% endif %}
+
+    <form action="{{ url_for('registrar_cartera') }}">
+      <button type="submit" class="btn-secundario">
+        Ir a Registrar Cartera
+      </button>
+    </form>
+  </body>
+</html>

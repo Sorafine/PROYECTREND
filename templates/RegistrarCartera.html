@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Registrar Cartera</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles.css') }}"
+    />
+  </head>
+  <body>
+    <h1>Registrar Cartera</h1>
+    <form action="/RegistrarCartera" method="POST">
+      <label>Nombre de la Cartera:</label>
+      <input type="text" name="nombre" required />
+
+      <label>Tipo de Cartera:</label>
+      <select name="tipo" required>
+        {% for tipo in tipos %}
+        <option value="{{ tipo.CODTIPCAR }}">{{ tipo.NOMBTIPCAR }}</option>
+        {% endfor %}
+      </select>
+
+      <label>Precio:</label>
+      <input type="number" step="0.01" name="precio" required />
+
+      <label>Fecha de Registro:</label>
+      <input type="date" name="fecha" required />
+
+      <button type="submit">Grabar</button>
+
+      {% if mensaje %}
+      <p class="mensaje">{{ mensaje }}</p>
+      {% endif %}
+    </form>
+
+    <form action="{{ url_for('consultar_cartera') }}">
+      <button type="submit" class="btn-secundario">
+        Ir a Consultar Cartera
+      </button>
+    </form>
+  </body>
+</html>
